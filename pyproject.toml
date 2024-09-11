@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mutter"
+authors = [
+    {name = "Justin Donaldson", email = "jjd@jjd.io"},
+]
+description = "A speech-to-text and AI conversation tool with macOS menu bar integration"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["speech-to-text", "AI", "conversation", "macOS"]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: MacOS X",
+]
+dependencies = [
+    "SpeechRecognition",
+    "whisper",
+    "requests",
+    "rumps",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["pytest", "black", "flake8"]
+
+[project.scripts]
+mutter = "mutter.cli:main"
+
+[tool.setuptools_scm]
+write_to = "mutter/_version.py"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mutter*"]
+exclude = ["tests*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203"
